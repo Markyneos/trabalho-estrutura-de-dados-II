@@ -4,15 +4,11 @@
 
 #define M 4
 
-typedef struct Dados {
-  char *matricula;
-  char *nome;
-  char *telefone;
-} Dados;
+// Ordem dos dados: matrícula, nome e telefone
 
 typedef struct Pagina {
   unsigned int qtdChaves;
-  Dados chaves[M - 1];
+  unsigned int chaves[M - 1];
   struct Pagina *filhos[M];
   unsigned int posicao;
   int folha;
