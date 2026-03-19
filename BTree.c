@@ -6,32 +6,46 @@
 
 // Ordem dos dados: matrícula, nome e telefone
 
+typedef struct Chave {
+  unsigned int matricula;
+  long posicao;
+} Chave;
+
 typedef struct Pagina {
   unsigned int qtdChaves;
-  unsigned int chaves[M - 1];
+  Chave chaves[M - 1];
   struct Pagina *filhos[M];
-  unsigned int posicao;
   int folha;
 } Pagina;
 
 typedef Pagina *BTree;
 
-BTree criarBTree(int folha) {
-  BTree novaArvore = (BTree)malloc(sizeof(BTree));
+BTree criarNode(int folha) {
+  BTree novoNode = (BTree)malloc(sizeof(Pagina));
+  if (novoNode == NULL) {
+    printf("Erro na alocação de memória.\n");
+    exit(1);
+  }
+  novoNode->folha = folha;
+  novoNode->qtdChaves = 0;
+
+  for (int i = 0; i < M; i++) {
+    novoNode->filhos[i] = NULL;
+  }
+
+  return novoNode;
+}
+
+BTree carregarBTree(FILE *arquivo) {
+  BTree novaArvore = (BTree)malloc(sizeof(Pagina));
   if (novaArvore == NULL) {
     printf("Erro na alocação de memória.\n");
     exit(1);
   }
-  novaArvore->folha = folha;
-  novaArvore->qtdChaves = 0;
-
-  for (int i = 0; i < M; i++) {
-    novaArvore->filhos[i] = NULL;
-  }
-
   return novaArvore;
 }
 
-void cadastrar(int matricula, char *nome, int telefone, BTree arvore) {
-
+void cadastrar(FILE *arquivo, int matricula, char *nome, char *telefone, BTree arvore) {
+  fseek(arquivo, 0, SEEK_END);
+  long posicao = ftell(arquivo);
 }
