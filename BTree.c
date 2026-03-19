@@ -1,6 +1,6 @@
+#include "BTree.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "BTree.h"
 
 #define M 4
 
@@ -17,7 +17,7 @@ typedef struct Pagina {
 typedef Pagina *BTree;
 
 BTree criarBTree(int folha) {
-  BTree novaArvore = (BTree) malloc(sizeof(BTree));
+  BTree novaArvore = (BTree)malloc(sizeof(BTree));
   if (novaArvore == NULL) {
     printf("Erro na alocação de memória.\n");
     exit(1);
@@ -30,4 +30,8 @@ BTree criarBTree(int folha) {
   }
 
   return novaArvore;
+}
+
+void cadastrar(int matricula, char *nome, int telefone, BTree arvore) {
+
 }
