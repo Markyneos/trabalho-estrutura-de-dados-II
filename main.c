@@ -24,25 +24,30 @@ int main() {
     printf("\n1 - Cadastrar\n2 - Pesquisar\n3 - Gravar\n4 - Sair\n");
     scanf("%d", &opcao);
 
-    if (opcao == 1) {
-      Registro novo;
+if (opcao == 1) {
+    Registro novo;
 
-      printf("Matricula: ");
-      scanf("%d", &novo.matricula);
+    printf("Matricula: ");
+    scanf("%d", &novo.matricula);
+    
+    // LIMPEZA DO BUFFER AQUI
+    while (getchar() != '\n'); 
 
-      printf("Nome: ");
-      fgets(novo.nome, 50, stdin);
+    printf("Nome: ");
+    fgets(novo.nome, 50, stdin);
+    // O fgets mantém o \n no final da string. Se quiser remover:
+    novo.nome[strcspn(novo.nome, "\n")] = 0;
 
-      printf("Telefone: ");
-      fgets(novo.telefone, 20, stdin);
+    printf("Telefone: ");
+    fgets(novo.telefone, 20, stdin);
+    novo.telefone[strcspn(novo.telefone, "\n")] = 0;
 
-      fseek(registro, 0, SEEK_END);
-      long pos = ftell(registro);
+    fseek(registro, 0, SEEK_END);
+    long pos = ftell(registro);
 
-      fwrite(&novo, sizeof(Registro), 1, registro);
-
-      inserir(arvore, novo.matricula, pos);
-    }
+    fwrite(&novo, sizeof(Registro), 1, registro);
+    inserir(arvore, novo.matricula, pos);
+}
 
     else if (opcao == 2) {
       int mat;
