@@ -21,13 +21,15 @@ int main() {
   int opcao;
 
   do {
+    printf("\n------Trabalho Estrutura de Dados II------\n");
     printf("\n1 - Cadastrar\n2 - Pesquisar\n3 - Gravar\n4 - Sair\n");
+    printf("\nDigite a sua opção: ");
     scanf("%d", &opcao);
 
 if (opcao == 1) {
     Registro novo;
-
-    printf("Matricula: ");
+    printf("\n------Cadastrar------\n");
+    printf("\nMatricula: ");
     scanf("%d", &novo.matricula);
     
     // LIMPEZA DO BUFFER AQUI
@@ -51,13 +53,14 @@ if (opcao == 1) {
 
     else if (opcao == 2) {
       int mat;
-      printf("Matricula: ");
+      printf("\n------Pesquisar------\n");
+      printf("\nMatricula: ");
       scanf("%d", &mat);
 
       long pos = buscar(arvore, mat);
 
       if (pos == -1) {
-        printf("Não encontrado.\n");
+        printf("\nNão encontrado.\n");
       } else {
         fseek(registro, pos, SEEK_SET);
         fread(&r, sizeof(Registro), 1, registro);
@@ -67,7 +70,7 @@ if (opcao == 1) {
       }
     } else if (opcao == 3) {
       FILE *out = fopen("registro_arvore.txt", "w");
-
+      printf("------Gravar------\n\n");
       fprintf(out, "RAIZ: %p\n", arvore);
       gravar(arvore, out);
 
