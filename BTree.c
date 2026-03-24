@@ -84,13 +84,13 @@ void inserirNaoCheio(BTree x, int k, long pos) {
     }
 }
 
-void inserir(BTree pagina, int k, long pos) {
+BTree inserir(BTree pagina, int k, long pos) {
     if (pagina == NULL) {
         pagina = criarPagina(1);
         pagina->chaves[0] = k;
         pagina->posicao[0] = pos;
         pagina->qtdChaves = 1;
-        return;
+        return pagina;
     }
 
     if (pagina->qtdChaves == M - 1) {
@@ -106,10 +106,11 @@ void inserir(BTree pagina, int k, long pos) {
 
         inserirNaoCheio(novaPagina->filhos[i], k, pos);
 
-        pagina = novaPagina;
+        return novaPagina;
     }
     else {
         inserirNaoCheio(pagina, k, pos);
+        return pagina;
     }
 }
 
@@ -145,11 +146,11 @@ void liberar(BTree x) {
 
 void gravar(BTree x, FILE *f) {
     if (x == NULL) return;
-
-    fprintf(f, "PAGINA %p | Quantidade de Chaves = %d", x, x->qtdChaves);
+    
+    fprintf(f, "PAGINA %p | Quantidade de Chaves = %d | Chaves: ", x, x->qtdChaves);
 
     for (int i = 0; i < x->qtdChaves; i++) {
-        fprintf(f, "%d ", x->chaves[i]);
+        fprintf(f, "[%d] ", x->chaves[i]); 
     }
     fprintf(f, "\n");
 
