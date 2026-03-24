@@ -14,7 +14,8 @@ int main() {
   long posicao = 0;
 
   while (fread(&r, sizeof(Registro), 1, registro)) {
-    inserir(arvore, r.matricula, posicao);
+    // É crucial que a variável 'arvore' receba o retorno aqui!
+    arvore = inserir(arvore, r.matricula, posicao); 
     posicao += sizeof(Registro);
   }
 
@@ -30,12 +31,11 @@ if (opcao == 1) {
     printf("Matricula: ");
     scanf("%d", &novo.matricula);
     
-    // LIMPEZA DO BUFFER AQUI
     while (getchar() != '\n'); 
 
     printf("Nome: ");
     fgets(novo.nome, 50, stdin);
-    // O fgets mantém o \n no final da string. Se quiser remover:
+
     novo.nome[strcspn(novo.nome, "\n")] = 0;
 
     printf("Telefone: ");
@@ -46,7 +46,9 @@ if (opcao == 1) {
     long pos = ftell(registro);
 
     fwrite(&novo, sizeof(Registro), 1, registro);
-    inserir(arvore, novo.matricula, pos);
+    fflush(registro); 
+
+    arvore = inserir(arvore, novo.matricula, pos);
 }
 
     else if (opcao == 2) {
