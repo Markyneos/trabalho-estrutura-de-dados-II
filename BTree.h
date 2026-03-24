@@ -27,7 +27,7 @@ void split(BTree x, int i);
 
 void inserirNaoCheio(BTree x, int k, long pos);
 
-void inserir(BTree pagina, int k, long pos);
+BTree inserir(BTree pagina, int k, long pos);
 
 long buscar(BTree x, int k);
 
