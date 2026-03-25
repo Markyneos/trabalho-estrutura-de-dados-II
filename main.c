@@ -3,10 +3,15 @@
 #include <string.h>
 #include <stdlib.h> 
 
-int main() {
-    FILE *registro = fopen("registro.txt", "rb+");
+int main(int argc, char *argv[]) {
+    if (argc < 2) {
+        printf("Uso: arquivoRegistro arquivoArvore\n");
+        return 1;
+    }
+
+    FILE *registro = fopen(argv[1], "rb+");
     if (!registro) {
-        registro = fopen("registro.txt", "wb+");
+        registro = fopen(argv[1], "wb+");
     }
 
     BTree arvore = NULL;
@@ -96,7 +101,7 @@ int main() {
             }
 
             case 3: {
-                FILE *out = fopen("registro_arvore.txt", "w");
+                FILE *out = fopen(argv[2], "w");
                 if (out) {
                     fprintf(out, "RAIZ: %p\n", (void*)arvore);
                     gravar(arvore, out);
